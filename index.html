@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <!-- <script src="./hello.js"></script>
+    <script src="./world.js"></script> -->
+  </head>
+  <body>
+    <script type="module">
+      import helloStr, { greeting } from "./hello.js";
+      import worldStr, { sum, add } from "./world.js";
+
+      console.log(sum(1, 3));
+      console.log(add(5, 5));
+      greeting();
+      console.log(worldStr);
+    </script>
+  </body>
+</html>

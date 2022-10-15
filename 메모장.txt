@@ -1,0 +1,35 @@
+vs code
+plugin => ESLint(문법 검사)
+ 	 Prettier Code formmater
+vs code 환경설정 => format on save 검색, 체크 // Editor : Default Formatter 설정
+
+깃헙 데스크탑
+파일탭 => option => account, git 탭 내 정보 확인
+
+commit => 로컬 저장소에 저장
+push => 원격 저장소에 커밋한 내용을 업로드
+pull => 원격 저장소에 업로드된 내용을 로컬 저장소에 반영
+
+Node.js (리액트를 위해 필수)
+JS=> 브라우저를 보조하기 위한 스크립트 언어.
+브라우저 외의 환경에서 실행할 수 있게 해주는 런타임 => Node.js
+node -v
+
+node module => 개발에 필요한 여러 모듈 설치해서 개발 효율성 증가. 
+npm -v
+
+// npm install -g nodemon
+
+
+PowerShell 관리자모드
+Get-ExecutionPolicy => Restricted
+Set-ExecutionPolicy RemoteSigned => Y
+Get-ExecutionPolicy => RemoteSigned
+
+
+nodemon watch "파일명" => 바로 반영
+
+
+npx create-react-app 프로젝트명  //프로젝트 설치
+dir : 파일 목록
+cd 경로명 => 이동
