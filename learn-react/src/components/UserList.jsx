@@ -1,102 +1,54 @@
-import { useState, useRef } from "react";
-import AddUser from "./AddUser";
-function UserList() {
-  const [userList, setUserList] = useState([
-    {
-      id: 1,
-      name: "이름1",
-      age: 34,
-      active: true,
-    },
-    {
-      id: 2,
-      name: "변경2",
-      age: 31,
-      active: false,
-    },
-    {
-      id: 3,
-      name: "변경3",
-      age: 35,
-      active: false,
-    },
-  ]);
+import React, { useContext, useMemo } from "react";
+import { UserDispatchContext } from "../App";
 
-  // useRef로 값을 관리하면 값이 변경되어도 리렌더링이 일어나지 않는다.
-  //  => 특정 값을 기억해놓고 사용한다(렌더링과 상관없이 변경 가능한 값).
-  const nextId = useRef(4);
+function countUser(arr) {
+  // active가 true 유저만 세기 (배열 관련 함수 활용하기)
+  console.log("유저 세는 중...");
+  return arr.filter((user) => user.active).length;
+}
 
-  const onCreate = (inputs) => {
-    const { name, age } = inputs;
-    setUserList(
-      // Array.prototype.concat : 인자로 전달된 배열 혹은 원소를 합쳐서 새로운 배열 반환
-      userList.concat({
-        id: nextId.current,
-        name,
-        age,
-      })
-    );
+function UserList({ userList }) {
+  // 의존하는 값이 변할 때에만 연산을 한다.
+  const userCount = useMemo(() => countUser(userList), [userList]);
 
-    nextId.current++;
-  };
-
-  const onRemove = (id) => {
-    // window.confirm : 확인 버튼 클릭시 true 반환
-    const ok = window.confirm("정말 삭제하시겠습니까?");
-    if (ok) setUserList(userList.filter((user) => user.id != id));
-  };
-
-  const onToggle = (id) => {
-    setUserList(
-      userList.map((user) =>
-        user.id === id ? { ...user, active: !user.active } : user
-      )
-    );
-  };
+  console.log("UserList render : %d", userCount);
 
   return (
     <div>
-      <AddUser onCreate={onCreate} onRemove={onRemove} />
-      <h2>유저목록</h2>
+      <h2>유저 목록</h2>
       <ul>
         {userList.map((user) => (
-          // props 통해서 user에 값 전달해서 반영하기
-          <User
-            key={user.id}
-            user={user}
-            onRemove={onRemove}
-            onToggle={onToggle}
-          />
+          // props 통해서 User 컴포넌트에 값 전달해서 반영하기
+          <User key={user.id} user={user} />
         ))}
       </ul>
     </div>
   );
 }
 
-function User({ user, onRemove, onToggle }) {
-  const { id, name, age, active } = user;
+function User({ user }) {
+  const dispatch = useContext(UserDispatchContext);
 
+  const { name, age, id, active } = user;
   return (
-    <div>
-      <li>
-        <span
-          style={{ color: active && "blue", cursor: "pointer" }}
-          onClick={() => onToggle(id)}
-        >
-          {name}({age}세)
-        </span>
-        <button
-          onClick={(e) => {
-            // 이벤트 전파(버블링을 막는다.)
-            // e.stopPropagation();
-            onRemove(id);
-          }}
-        >
-          삭제
-        </button>
-      </li>
-    </div>
+    <li>
+      <span
+        style={{ color: active && "blue", cursor: "pointer" }}
+        onClick={() => dispatch({ type: "TOGGLE_USER", id })}
+      >
+        {name}({age}세)
+      </span>
+      <button
+        onClick={() => {
+          // 이벤트 전파(버블링)를 막는다.
+          // e.stopPropagation();
+          dispatch({ type: "REMOVE_USER", id });
+        }}
+      >
+        삭제
+      </button>
+    </li>
   );
 }
 
-export default UserList;
+export default React.memo(UserList);
