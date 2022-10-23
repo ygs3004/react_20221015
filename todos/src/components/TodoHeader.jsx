@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { useTodoState } from "../hooks/useTodoReducer";
 
-function TodoHeader({ todos }) {
+function TodoHeader() {
+  const todos = useTodoState();
+
   const dateStr = new Date().toLocaleDateString("ko-KR", { dateStyle: "full" });
 
   const total = todos.length;
@@ -23,7 +26,7 @@ function TodoHeader({ todos }) {
 }
 
 const HeaderBlock = styled.div`
-  padding: 30px 20px;
+  padding: 20px 10px;
   border-bottom: 1px solid #e6e6e6;
 `;
 
@@ -38,15 +41,12 @@ const CountText = styled.p`
 `;
 
 const StatusBar = styled.div`
-  // 레이아웃
   height: 12px;
   margin-top: 5px;
 
-  // 백그라운드
   background-color: #bbb;
   border-radius: 10px;
 
-  // 폰트
   font-size: 0.5rem;
   text-align: center;
   line-height: 12px;
@@ -62,18 +62,18 @@ const StatusBar = styled.div`
     height: 100%;
     background-color: ${({ theme }) => theme.colors.main};
 
-    position: absolute; // 상위 요소 포지션에 요소 적용
+    position: absolute;
     left: 0;
     top: 0;
 
     transform-origin: left;
     transform: scaleX(${({ percentage }) => percentage}%);
-    transition: 0.25s; // 줄어드는 속도
+    transition: 0.25s;
   }
 `;
 
 const Percentage = styled.span`
-  position: relative; // positoin 값이 있어야 z-index 비교 가능
+  position: relative;
   z-index: 10;
 `;
 

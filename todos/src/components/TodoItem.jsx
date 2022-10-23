@@ -1,30 +1,25 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import {
   AiFillCheckCircle,
   AiOutlineCheckCircle,
   AiFillDelete,
 } from "react-icons/ai";
 import { useState } from "react";
-import {
-  TODO_TYPES,
-  useTodoDispatch,
-  useTodoState,
-} from "../hooks/userTodoReducer";
+import { keyframes } from "styled-components";
+import { TODO_TYPES, useTodoDispatch } from "../hooks/useTodoReducer";
 
 function TodoItem({ todo }) {
   const { id, text, done } = todo;
-  const { remove, setRemove } = useState(false);
+  const [remove, setRemove] = useState(false);
 
   const dispatch = useTodoDispatch();
-
-  const value = useTodoState();
 
   const onToggle = () => {
     dispatch({ type: TODO_TYPES.TOGGLE_TODO, id });
   };
 
   const onRemove = () => {
-    //setRemove(true);
+    setRemove(true);
     setTimeout(() => {
       dispatch({ type: TODO_TYPES.REMOVE_TODO, id });
     }, 200);
@@ -40,7 +35,6 @@ function TodoItem({ todo }) {
         )}
       </CheckBox>
       <TodoText done={done}>{text}</TodoText>
-
       <AiFillDelete
         onMouseOver={({ target }) => (target.style.color = "red")}
         onMouseOut={({ target }) => (target.style.color = "black")}
@@ -52,8 +46,8 @@ function TodoItem({ todo }) {
 }
 
 const slideOut = keyframes`
-  to{
-    transform : translateX(100%);
+  to {
+    transform: translateX(100%);
   }
 `;
 
@@ -65,7 +59,7 @@ const ItemBlock = styled.li`
   ${({ remove }) =>
     remove &&
     css`
-      animation-name: ${slideOut} 0.2s;
+      animation: ${slideOut} 0.25s;
     `}
 `;
 
@@ -74,12 +68,11 @@ const CheckBox = styled.div`
 `;
 
 const TodoText = styled.p`
-  flex: 1; //남은 여백을 p 태그가 모두 가짐
+  flex: 1;
   font-size: 0.8rem;
   margin-left: 5px;
-
-  ${(props) =>
-    props.done &&
+  ${({ done }) =>
+    done &&
     css`
       text-decoration: line-through;
       color: #aaa;

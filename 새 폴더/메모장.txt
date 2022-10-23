@@ -42,3 +42,4 @@ scss, live compiler
 library
 npm install styled-components
 npm install react-icons --save
+npm install polished

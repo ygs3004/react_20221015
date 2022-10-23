@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { useTodoState } from "../hooks/useTodoReducer";
 import TodoItem from "./TodoItem";
 
-function TodoList({ todos, dispatch }) {
+function TodoList() {
+  const todos = useTodoState();
   return (
     <ListBlock>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} dispatch={dispatch} />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </ListBlock>
   );
