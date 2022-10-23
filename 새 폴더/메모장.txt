@@ -26,16 +26,19 @@ Get-ExecutionPolicy => Restricted
 Set-ExecutionPolicy RemoteSigned => Y
 Get-ExecutionPolicy => RemoteSigned
 
-
 nodemon watch "파일명" => 바로 반영
-
-
-npm install styled-components
 
 npx create-react-app 프로젝트명  //프로젝트 설치
 dir : 파일 목록
 cd 경로명 => 이동
 
 
-221022
-create-react-app 프로젝트 => 프로젝트 생성
+
+
+plugin
+styled 
+scss, live compiler
+
+library
+npm install styled-components
+npm install react-icons --save
