@@ -56,6 +56,8 @@ export function TodoProvider({ children }) {
 }
 
 export function useTodoState() {
+  const context = useContext(TodoStateContext);
+  if (!context) throw new Error("Cannot find TodoProvider");
   return useContext(TodoStateContext);
 }
 
