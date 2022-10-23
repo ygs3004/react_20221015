@@ -4,7 +4,7 @@ import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import TodoTemplate from "./components/TodoTemplate";
-import useTodoReducer, { TodoProvider } from "./hooks/useTodoReducer";
+import { TodoProvider } from "./hooks/useTodoReducer";
 
 // 글로벌 스타일 적용
 const GlobalStyle = createGlobalStyle`
