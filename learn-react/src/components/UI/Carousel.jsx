@@ -8,7 +8,7 @@ import ModalBg from "./ModalBg";
 const slideList = [
   {
     id: 1,
-    url: "../../assets/images/1.jpg",
+    url: "../../assets/images/yeji.png",
   },
 ];
 
@@ -24,7 +24,7 @@ function Carousel() {
     //   window.addEventListener("wheel", preventWheel, { passive: false });
     // else window.removeEventListener("wheel", preventWheel, { passive: false });
     if (modalOn) {
-      document.body.style.height = "100%";
+      document.body.style.height = "100vh";
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.height = "auto";

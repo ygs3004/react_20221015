@@ -43,3 +43,13 @@ library
 npm install styled-components
 npm install react-icons --save
 npm install polished
+
+npm install -g json-server
+json-server --watch db.json --port 8000
+
+  Resources // 가상의 주소
+  http://localhost:8000/posts
+  http://localhost:8000/comments
+  http://localhost:8000/profile
+
+baseurl = ex) https://nepp.com/ ~~
