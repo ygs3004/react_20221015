@@ -5,7 +5,16 @@ import useAsync from "./useAsync";
 function Post() {
   const [title, setTitle] = useState("");
   const [state, fetchData] = useAsync(async () => {
-    return axios.get("http://localhost:8000/posts");
+    console.log(process.env.REACT_APP_ClientId);
+    return axios.get("/v1/search/book.json", {
+      params: {
+        query: "javascript",
+      },
+      headers: {
+        "X-Naver-Client-Id": process.env.REACT_APP_ClientId,
+        "X-Naver-Client-Secret": process.env.REACT_APP_ClientSecret,
+      },
+    });
   });
 
   const onSubmit = async () => {
@@ -20,11 +29,11 @@ function Post() {
 
     fetchData();
   };
-
-  const { loading, data: postList, error } = state;
+  const { loading, data, error } = state;
 
   if (loading) return <div>로딩 중.....</div>;
   if (error) return <div> 에러 발생 </div>;
+  if (!data) return;
 
   return (
     <div>
@@ -35,10 +44,10 @@ function Post() {
         onChange={({ target: { value } }) => setTitle(value)}
       />
       <button onClick={onSubmit}>등록</button>
-      {postList?.map((post) => (
-        <li key={post.id}>
-          {post.title}
-          <button onClick={() => onDelete(post.id)}>삭제</button>
+      {data.items.map((item) => (
+        <li key={item.isbn}>
+          {item.title}({item.author})
+          <img src={item.image} alt="" />
         </li>
       ))}
     </div>
