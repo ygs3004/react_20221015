@@ -3,17 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
-import { CookiesProvider } from "react-cookie";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </BrowserRouter>
+    {/* Provider : react-redux로부터 import */}
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
