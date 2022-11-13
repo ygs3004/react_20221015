@@ -1,30 +1,37 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, RedButton } from "../common/buttons";
+import { useNavigate } from "react-router-dom";
+import { postSignUp } from "../../api";
+import { RedButton } from "../common/buttons";
 import { Form } from "../common/form";
 import { Input } from "../common/input";
 import Title from "../common/title";
 
-function SignInForm() {
+function SigninForm() {
   const [inputs, setInputs] = useState({
-    name: "",
+    username: "",
     email: "",
-    password1: "",
-    password2: "",
+    password: "",
+    confirmPassword: "",
   });
 
+  // 비구조화 할당
+  const { username, password, email, confirmPassword } = inputs;
+
   const [isEmpty, setIsEmpty] = useState(true);
-  const disabled = isEmpty || inputs.password1 !== inputs.password2;
+  const disabled = isEmpty || password !== confirmPassword;
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
   };
 
-  console.log(inputs);
-  console.log(isEmpty);
-
   useEffect(() => {
-    // for ~ of: 반복 가능한(iterable) 객체를 순회하며 반복한다.
+    // for ~ of : 반복 가능한(Iterable) 객체를 순회하며 반복한다.
     // for ~ in : 열거 가능한(emulable) 객체를 순회하며 반복한다.
     for (let value of Object.values(inputs)) {
       if (value.length < 1) {
@@ -32,17 +39,25 @@ function SignInForm() {
         return;
       }
     }
-
     setIsEmpty(false);
-  }, [inputs]);
+  }, [inputs, isEmpty]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    postSignUp(username, email, password).then(() => {
+      alert("회원가입에 성공하였습니다.");
+      navigate("/accounts/login");
+    });
+  };
 
   return (
     <>
-      <Title title="SignIn" />
-      <Form margin="20px 0 ">
+      <Title title="Signin" />
+      <Form margin="20px 0" onSubmit={handleSubmit}>
         <Input
           placeholder="이름을 입력해주세요"
-          name="name"
+          name="username"
           onChange={handleInput}
         />
         <Input
@@ -52,17 +67,19 @@ function SignInForm() {
         />
         <Input
           placeholder="비밀번호를 입력하세요"
-          name="password1"
+          type="password"
+          name="password"
           onChange={handleInput}
         />
         <Input
           placeholder="비밀번호를 확인해주세요"
-          name="password2"
+          type="password"
+          name="confirmPassword"
           onChange={handleInput}
         />
-        <div style={{ marginTop: "50px" }}>
+        <div style={{ marginTop: 50 }}>
           <RedButton style={{ marginTop: "5px" }} disabled={disabled}>
-            SignIn
+            Signin
           </RedButton>
         </div>
       </Form>
@@ -70,4 +87,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default SigninForm;

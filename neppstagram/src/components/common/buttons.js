@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Button = styled.button`
   width: 100%;
-  padding: 10px 0;
+  padding: 5px 0;
   border: none;
   outline: none;
   border-radius: 4px;
@@ -11,7 +11,7 @@ export const Button = styled.button`
   font-weight: 700;
 
   & + & {
-    margin-top: 3px;
+    margin-top: 5px;
   }
 
   ${({ disabled }) =>
@@ -25,6 +25,6 @@ export const RedButton = styled(Button)`
   background-color: red;
 `;
 
-export const BlueButton = styled(Button)`
+export const Blue = styled(Button)`
   background-color: blue;
 `;

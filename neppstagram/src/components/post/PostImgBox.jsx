@@ -1,15 +1,17 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { useState } from "react";
 
 function PostImgBox({ imgUrls }) {
+  console.log(imgUrls);
+
   const [idx, setIdx] = useState(0);
 
   const handleIdx = (operator) => {
     if (operator === -1) {
       if (idx > 0) setIdx(idx + operator);
     } else {
-      if (idx < imgUrls.length - 1) setIdx(idx + operator);
+      if (idx + operator <= imgUrls.length - 1) setIdx(idx + operator);
     }
   };
 
@@ -18,7 +20,7 @@ function PostImgBox({ imgUrls }) {
       <ImgList idx={idx}>
         {imgUrls.map((url) => (
           <li>
-            <img src={url} alt="사진" />
+            <img src={url} alt="as" />
           </li>
         ))}
       </ImgList>
@@ -35,7 +37,6 @@ function PostImgBox({ imgUrls }) {
 const Block = styled.div`
   height: 200px;
   overflow: hidden;
-
   position: relative;
 `;
 
@@ -45,9 +46,10 @@ const ImgList = styled.ul`
   transition: transform 0.25s;
   transform: translate(${({ idx }) => idx * -200}px);
   li {
+    display: flex;
+    justify-content: center;
     width: 200px;
     flex-shrink: 0;
-    overflow: hidden;
     img {
       width: 100%;
     }
@@ -58,9 +60,9 @@ const Btn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 30px;
   height: 30px;
-
   border: none;
   border-radius: 50%;
   outline: none;
@@ -71,6 +73,7 @@ const Btn = styled.button`
   transform: translateY(-50%);
 
   cursor: pointer;
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.2);
   }

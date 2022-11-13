@@ -11,11 +11,10 @@ function Login() {
 
 const Block = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-
   height: 100%;
   padding: 0 10px;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export default Login;
